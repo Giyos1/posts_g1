@@ -1,0 +1,24 @@
+/* Make the page fill the entire viewport */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Wrapper to fill space between navbar and footer */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+/* Push the main content to take available space */
+.content {
+    flex: 1;
+}
+
+/* Footer should always be at the bottom */
+.footer {
+    width: 100%;
+}
