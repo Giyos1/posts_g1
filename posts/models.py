@@ -5,6 +5,10 @@ class Status(models.TextChoices):
     DR = 'draft', 'DRAFT',
     PB = 'published', 'Published',
 
+class Published(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(status = Status.PB)
+
 class Post(models.Model):
 
     title = models.CharField(max_length=255)
@@ -14,3 +18,5 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(default=Status.DR, choices=Status, max_length=10)
+
+    published = Published()
