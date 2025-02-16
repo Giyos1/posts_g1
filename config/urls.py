@@ -18,10 +18,12 @@ from django.contrib import admin
 from django.shortcuts import render
 from django.urls import path
 
-def home(request):
-    return render(request, 'index.html')
-
+from posts.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home, name='home')
+    path('', home, name='home'),
+    path('posts', posts, name='posts'),
+    path('post_details/<int:pk>', post_details, name='post_details'),
+    path('post_edit/<int:pk>', post_edit, name='post_edit'),
+    path('post_delete/<int:pk>', post_delete, name='post_delete'),
 ]
