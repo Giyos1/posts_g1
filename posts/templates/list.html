@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Home</title>
+{% endblock %}
+
+
+{% block body %}
+    <section style="margin: 1vh">
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Publish</th>
+                    <th scope="col">Created</th>
+                    <th scope="col">Updated</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for post in posts %}
+                    <tr>
+                            <th>{{ post.id }}</th>
+                            <td>{{ post.title }}</td>
+                            <td>{{ post.author }}</td>
+                            <td>{{ post.publish }}</td>
+                            <td>{{ post.created }}</td>
+                            <td>{{ post.updated }}</td>
+                            <td>{{ post.status }}</td>
+                            <td>
+                                <a href="{% url 'posts:detail' post.id %}" style="text-decoration: none">
+                                    <button class="btn btn-primary">See</button>
+                                </a>
+                                <a href="{% url 'posts:edit-post' post.id %}" style="text-decoration: none">
+                                    <button class="btn btn-warning">Edit</button>
+                                </a>
+                                <a href="{% url 'posts:delete-post' post.id %}" style="text-decoration: none">
+                                    <button class="btn btn-danger">Delete</button>
+                                </a>
+                            </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% include "pagination.html" with page=posts %}
+    </section>
+
+{% endblock %}

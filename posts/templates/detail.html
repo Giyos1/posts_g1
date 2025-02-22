@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Home</title>
+{% endblock %}
+
+
+{% block body %}
+
+    <section style="margin: 1vh">
+        <p>
+            <b>Title:</b>
+            {{ post.title }}
+        </p>
+        <p>
+            <b>Author:</b>
+            {{ post.author }}
+        </p>
+        <p>
+            <b>Publish:</b>
+            {{ post.publish }}
+        </p>
+        <p>
+            <b>Created:</b>
+            {{ post.created }}
+        </p>
+        <p>
+            <b>Updated:</b>
+            {{ post.updated }}
+        </p>
+        <p>
+            <b>Status:</b>
+            {{ post.status }}
+        </p>
+        <a href="{% url 'posts:list' %}">
+            <button class="btn btn-secondary">Home</button>
+        </a>
+    </section>
+
+{% endblock %}

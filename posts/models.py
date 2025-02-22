@@ -1,22 +1,39 @@
 from django.db import models
-from django.contrib.auth.models import User
+from users.models import CustomUser
+from django.db.models import Q
 
 class Status(models.TextChoices):
     DR = 'draft', 'DRAFT',
     PB = 'published', 'Published',
 
-class Published(models.Manager):
-    def get_queryset(self):
-        return super().get_queryset().filter(status = Status.PB)
+
+class CustomManager(models.Manager):
+    def for_user(self, user):
+        return super().get_queryset().filter(author = user)
+    def search(self, user,q):
+        p =  self.filter(
+            Q(title__icontains=q) |
+            Q(created__icontains=q) |
+            Q(publish__icontains=q)
+        )
+        p.filter(author = user)
+        return p
 
 class Post(models.Model):
-
     title = models.CharField(max_length=255)
     slug = models.SlugField()
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    publish = models.DateTimeField()
+    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    publish = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(default=Status.DR, choices=Status, max_length=10)
 
-    published = Published()
+
+    objects = CustomManager()
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        db_table = "contact"
+        ordering = ["-created"]

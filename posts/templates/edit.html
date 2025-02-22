@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Home</title>
+{% endblock %}
+
+
+{% block body %}
+
+    <section style="margin: 1vh">
+        <form action="{% url 'posts:edit-post' post.pk %}" method="post">
+            {% csrf_token %}
+            {{ forms.as_p }}
+            <input type="submit" class="btn btn-success me-2" value="Save">
+        </form>
+        <br>
+        <a href="{% url 'posts:list' %}">
+            <button class="btn btn-secondary">Home</button>
+        </a>
+    </section>
+
+{% endblock %}
