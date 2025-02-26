@@ -27,4 +27,5 @@
         <p class="no-posts">No posts available.</p>
     {% endfor %}
 </div>
+    {% include 'paginations.html' with page=posts %}
 {% endblock %}
