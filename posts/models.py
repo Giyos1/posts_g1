@@ -1,5 +1,6 @@
 from django.db import models
 from typing import override
+from django.contrib.auth.models import User
 
 # Create your models here.
 class PublishedPosts(models.Manager):
@@ -16,6 +17,7 @@ class Post(models.Model):
         DR = 'draft', 'Draft'
         PB = 'published', 'Published'
     title = models.CharField(max_length=50)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_posts', null=True, blank=True)
     slug = models.SlugField(max_length=255)
     # author = models.ForeignKey(User)
     body = models.TextField(null=True, blank=True)

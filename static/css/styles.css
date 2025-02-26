@@ -57,6 +57,67 @@ html, body {
 .custom-navbar .navbar-toggler-icon {
     filter: invert(1);
 }
+/* Navbar Buttons */
+.custom-navbar .btn {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-navbar .btn-outline-light {
+    border-color: rgba(255, 255, 255, 0.8);
+    color: #ffffff;
+}
+
+.custom-navbar .btn-outline-light:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.custom-navbar .btn-primary {
+    background: #4644c0; /* Matching your neon theme */
+    border: none;
+    color: #ffffff;
+}
+
+.custom-navbar .btn-primary:hover {
+    background: #5a57d6; /* Slightly lighter shade */
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(70, 68, 192, 0.5);
+}
+
+/* Custom styles for dropdown menu */
+.custom-navbar .dropdown-menu {
+    background: rgba(30, 30, 30, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.custom-navbar .dropdown-item {
+    color: #ffffff;
+}
+
+.custom-navbar .dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ff69b4; /* Neon pink */
+}
+
+.custom-navbar .dropdown-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) {
+    .custom-navbar .d-flex {
+        margin-top: 10px;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .custom-navbar .btn {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
 
 /* Custom Footer with Neon Glow */
 .custom-footer {

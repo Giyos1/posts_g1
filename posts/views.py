@@ -1,14 +1,31 @@
+from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from .models import Post
+from django.core.paginator import Paginator
 # Create your views here.
 
 def home(request):
     return render(request, 'index.html')
 
+@login_required
 def posts(request):
-    posts = Post.published_posts.all()
+    q = request.GET.get('q')
+    print(q)
+    posts = None
+    if q and q != 'None':
+        posts = Post.published_posts.filter(Q(title__icontains=q) | Q(body__icontains=q) | Q(slug__icontains=q))
+    else:
+        posts = Post.published_posts.all()
+
+    #pagination
+    paginator = Paginator(posts, 10)
+    page_number = request.GET.get('page')
+    posts = paginator.get_page(page_number)
+
     context = {
-        'posts': posts
+        'posts': posts,
+        'q': q
     }
     return render(request, 'posts.html', context=context)
 
