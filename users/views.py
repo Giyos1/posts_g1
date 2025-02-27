@@ -3,6 +3,8 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import CustomUser
+from .forms import ForgotPasswordForm
+from .service import send_thread_email
 
 def register_view(request):
     if request.method == 'POST':
@@ -86,3 +88,16 @@ def accounts_edit(request):
 @login_required
 def home(request):
     return HttpResponse('salom')
+
+
+def forgot_password(request):
+    if request.method == 'POST':
+        form = ForgotPasswordForm(request.POST)
+        if form.is_valid():
+            user = form.cleaned_data.get('username')
+            reciever = form.cleaned_data.get('email')
+            send_thread_email(user, reciever)
+            form = 'Message is send to your email!'
+        return render(request, 'users/forgot_password.html', context={'form': form})
+    form = ForgotPasswordForm()
+    return render(request, 'users/forgot_password.html', context={'form': form})
